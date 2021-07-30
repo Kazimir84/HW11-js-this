@@ -20,28 +20,32 @@ console.log('Текущее значение = ', counter.showStep()); // 2
 
 console.log('-----------------------№4');
 
-function Calculator () {
-  this.inputs = function (x,y) {
-    this.x = x;
-    this.y = y;
-  }
-  this.sum = function () {
-   return this.x + this.y;
+function Calculator () {       
+    this.sum = function (x) {    
+        return function (y) {
+           return x + y;
+        };
+    };
+    this.subtract = function (x) {
+        return function (y) {
+            return x - y;
+        };
+    };
+    this.divide = function (x) {
+        return function (y) {
+            return x / y;
+         };
+    };
+    this.multiply = function (x) {
+        return function (y) {
+            return x * y;
+         };
+    };  
   };
-  this.subtract = function () {
-    return this.x - this.y;
-  };
-  this.divide = function () {
-    return this.x / this.y;
-  };
-  this.multiply = function () {
-    return this.x * this.y;
-  };  
-};
+  
+  let calculator = new Calculator();
 
-let calculator = new Calculator();
-calculator.inputs(6,2);
-	console.log('Сумма = ', calculator.sum()); // результат 8
-  console.log('Разница = ', calculator.subtract());// результат 4
-  console.log('Деление = ', calculator.divide());// результат 3
-  console.log('Умножение = ', calculator.multiply());// результат 12
+    console.log('Сумма = ', calculator.sum(6)(2)); // результат 8
+    console.log('Разница = ', calculator.subtract(6)(2));// результат 4
+    console.log('Деление = ', calculator.divide(6)(2));// результат 3
+    console.log('Умножение = ', calculator.multiply(6)(2));// результат 12
